@@ -14,7 +14,7 @@ class ScanSettings(object):
     """
 
     def __init__(self, motor_speed=None, sample_rate=None, deadzone=None,
-                 scan_range=None, mount_angle=None):
+                 scan_range=None, mount_angle=None, min_range_val=None, max_range_val=None):
         """Return a ScanSettings object.
         :param motorSpeed:  Integer value between 1:10 representing motor speed in HZ
         :param sampleRate:  Integer value (500, 750 or 1000), representing a sample rate in HZ
@@ -22,6 +22,8 @@ class ScanSettings(object):
                             rotating (measured in degrees from sweep device 0 angle)
         :param scan_range:  Range of movement for the scan to cover (default 180deg)
         :param mount_angle: Mount angle of the device relative to horizontal plane (defaults 90deg)
+        :min_range_val: Minimum range value for a sensor reading to be recorded (defaults 10 cm)
+        :max_range_val: Maximum range value for a sensor reading to be recorded (defaults 4000 cm)
         """
         if motor_speed is None:
             motor_speed = sweep_helpers.MOTOR_SPEED_1_HZ
@@ -33,13 +35,17 @@ class ScanSettings(object):
             scan_range = 180
         if mount_angle is None:
             mount_angle = 90
+        if min_range_val is None:
+            min_range_val = 10
+        if max_range_val is None:
+            max_range_val = 4000
         self.motor_speed = motor_speed
         self.sample_rate = sample_rate
         self.deadzone = deadzone
         self.scan_range = scan_range
         self.mount_angle = mount_angle
-        self.min_range_val = 10
-        self.max_range_val = 4000
+        self.min_range_val = min_range_val
+        self.max_range_val = max_range_val
 
     def set_motor_speed(self, motor_speed=None):
         """Sets the motor speed setting
@@ -81,6 +87,22 @@ class ScanSettings(object):
         if mount_angle is None:
             mount_angle = 90
         self.mount_angle = mount_angle
+
+    def set_min_range_val(self, min_range_val=None):
+        """Sets the minimum range value for a sensor reading to be recorded
+        :param min_range_val: Minimum range value for a sensor reading to be recorded (defaults 10 cm)
+        """
+        if min_range_val is None:
+            min_range_val = 10
+        self.min_range_val = min_range_val
+
+    def set_max_range_val(self, max_range_val=None):
+        """Sets the maximum range value for a sensor reading to be recorded
+        :param max_range_val: Maximum range value for a sensor reading to be recorded (defaults 4000 cm)
+        """
+        if max_range_val is None:
+            max_range_val = 4000
+        self.max_range_val = max_range_val
 
     def get_motor_speed(self):
         """Returns the motor speed setting in HZ"""
@@ -133,6 +155,8 @@ class ScanSettings(object):
         print "ScanSettings Object"
         print "\tMotor speed: {} HZ".format(self.get_motor_speed())
         print "\tSample rate: {} HZ".format(self.get_sample_rate())
+        print "\tMinimum range: {} cm".format(self.get_min_range_val())
+        print "\tMaximum range: {} cm".format(self.get_max_range_val())
         print "\tDeadzone angle: {} degrees".format(self.get_deadzone())
         print "\tTime to reach deadzone angle: {} ms, or {} sec".format(
             self.get_time_to_deadzone_ms(), self.get_time_to_deadzone_sec())
@@ -146,11 +170,13 @@ def main():
     default_params = ScanSettings()
     # Create a ScanSettings obj with specific settings
     custom_params = ScanSettings(
-        sweep_helpers.MOTOR_SPEED_2_HZ,       # desired motor speed setting
-        sweep_helpers.SAMPLE_RATE_750_HZ,     # desired sample rate setting
+        sweep_helpers.MOTOR_SPEED_2_HZ,         # desired motor speed setting
+        sweep_helpers.SAMPLE_RATE_750_HZ,       # desired sample rate setting
         135,                                    # desired deadzone angle threshold
         180,                                    # desired range of movement
-        90)                                    # mount angle of device relative to horizontal plane
+        90,                                     # mount angle of device relative to horizontal plane
+        10,                                     # minimum range value for a sensor reading to be recorded
+        4000)                                   # maximum range value for a sensor reading to be recorded
 
     # Prints details for both objects
     default_params.print_details()

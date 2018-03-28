@@ -24,6 +24,14 @@ block content
         td
           span(id="span_SampleRate")
       tr
+        td Minimum Distance
+        td
+          span(id="span_MinRangeVal")
+      tr
+        td Maximum Distance
+        td
+          span(id="span_MaxRangeVal")
+      tr
         td File Name
         td
           span(id="span_FileName")
@@ -54,16 +62,22 @@ block content
         div.form-group
             label(for="input_FileName") File Name:
             input.form-control.input-lg(type="text", id="input_FileName", name="input_FileName")
-          div.form-group
-              label(for="select_ScanType") Scan Type:
-              select.form-control.input-lg(id="select_ScanType", name="input_ScanType")
-          div.form-group
-              label(for="select_MotorSpeed") Motor Speed:
-              select.form-control.input-lg(id="select_MotorSpeed", name="input_MotorSpeed")
-          div.form-group
-              label(for="select_SampleRate") Sample Rate:
-              select.form-control.input-lg(id="select_SampleRate", name="input_SampleRate")
-          button.btn.btn-primary.btn-lg(id="btn_PerformScan", type="button") Start Scan
+        div.form-group
+            label(for="select_ScanType") Scan Type:
+            select.form-control.input-lg(id="select_ScanType", name="input_ScanType")
+        div.form-group
+            label(for="select_MotorSpeed") Motor Speed:
+            select.form-control.input-lg(id="select_MotorSpeed", name="input_MotorSpeed")
+        div.form-group
+            label(for="select_SampleRate") Sample Rate:
+            select.form-control.input-lg(id="select_SampleRate", name="input_SampleRate")
+        div.form-group
+            label(for="input_MinRangeVal") Minimum Distance:
+            input.form-control.input-lg(type="text", id="input_MinRangeVal", name="input_MinRangeVal")
+        div.form-group
+            label(for="input_MaxRangeVal") Maximum Distance:
+            input.form-control.input-lg(type="text", id="input_MaxRangeVal", name="input_MaxRangeVal")
+        button.btn.btn-primary.btn-lg(id="btn_PerformScan", type="button") Start Scan
 block scripts
   include scanner_lib_scripts
   script(src='/javascript/pages/scan.js')

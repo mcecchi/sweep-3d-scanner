@@ -92,7 +92,7 @@ class Scanner(object):
 
     def perform_scan(self):
         """Performs a 3d scan"""
-        # Calcualte some intermediate values
+        # Calculate some intermediate values
         num_sweeps, angle_between_sweeps, steps_per_move = self.calculate_scan_variables()
 
         # Report that the scan is initiating, and start scanning
@@ -251,12 +251,13 @@ def main(arg_dict):
     """Creates a 3D scanner and gather a scan"""
     # Create a scan settings obj
     settings = scan_settings.ScanSettings(
-        int(arg_dict['motor_speed']),   # desired motor speed setting
-        int(arg_dict['sample_rate']),   # desired sample rate setting
-        int(arg_dict['dead_zone']),     # starting angle of deadzone
-        int(arg_dict['angular_range']),  # angular range of scan
-        # mount angle of device relative to horizontal
-        int(arg_dict['mount_angle'])
+        int(arg_dict['motor_speed']),       # desired motor speed setting
+        int(arg_dict['sample_rate']),       # desired sample rate setting
+        int(arg_dict['dead_zone']),         # starting angle of deadzone
+        int(arg_dict['angular_range']),     # angular range of scan
+        int(arg_dict['mount_angle']),       # mount angle of device relative to horizontal
+        int(arg_dict['min_range_val']),     # minimum range value
+        int(arg_dict['max_range_val'])      # maximum range value
     )
 
     # Create an exporter
@@ -312,6 +313,14 @@ if __name__ == '__main__':
                         help='Starting angle of deadzone',
                         default=135,
                         required=False)
+    parser.add_argument('-lr', '--min_range_val',
+                        help='Minimum range value',
+                        default=10,
+                        required=False)
+    parser.add_argument('-hr', '--max_range_val',
+                        help='Maximum range value',
+                        default=4000,
+                        required=False)
     default_filename = "Scan " + datetime.datetime.fromtimestamp(
         time.time()).strftime('%Y-%m-%d %H-%M-%S') + '.csv'
     parser.add_argument('-o', '--output',
@@ -319,7 +328,7 @@ if __name__ == '__main__':
                         default=default_filename,
                         required=False)
     parser.add_argument('-d', '--use_dummy',
-                        help='Use the dummy verison without hardware',
+                        help='Use the dummy version without hardware',
                         default=False,
                         action='store_true',
                         required=False)

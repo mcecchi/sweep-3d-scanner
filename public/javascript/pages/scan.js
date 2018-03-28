@@ -25,6 +25,9 @@ function initScanForm() {
     _UTILS.initDropdownForEnum('select_MotorSpeed', _SETTINGS.MOTOR_SPEED_ENUM);
     _UTILS.initDropdownForEnum('select_SampleRate', _SETTINGS.SAMPLE_RATE_ENUM);
 
+    $("#input_MinRangeVal").val("10")
+    $("#input_MaxRangeVal").val("4000")
+
     // Request that a scan be initiated when button is pressed
     $("#btn_PerformScan").click(function () {
         let options = readSpecifiedScanOptions();
@@ -128,6 +131,9 @@ function readSpecifiedScanOptions() {
     let alt_filename = "3D Scan - " + d.toDateString() + " " + d.toLocaleTimeString().replace(/:\s*/g, "-");
     options.file_name = _UTILS.textInputHasValue("#input_FileName") ? $("#input_FileName").val() : alt_filename;
 
+    options.min_range_val = _UTILS.textInputHasValue("#input_MinRangeVal") ? $("#input_MinRangeVal").val() : "10";
+    options.max_range_val = _UTILS.textInputHasValue("#input_MaxRangeVal") ? $("#input_MaxRangeVal").val() : "4000";
+
     return options;
 }
 
@@ -141,6 +147,8 @@ function showScanProgress(params) {
     $("#span_ScanType").html(`${params.angular_range * 2} degree scan`);
     $("#span_MotorSpeed").html(params.motor_speed);
     $("#span_SampleRate").html(params.sample_rate);
+    $("#span_MinRangeVal").html(params.min_range_val);
+    $("#span_MaxRangeVal").html(params.max_range_val);
     $("#span_FileName").html(params.file_name);
 }
 

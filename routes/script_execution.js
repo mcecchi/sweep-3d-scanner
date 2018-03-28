@@ -138,6 +138,8 @@ function performScan(params) {
         `--motor_speed=${params.motor_speed}`,
         `--sample_rate=${params.sample_rate}`,
         `--angular_range=${params.angular_range}`,
+        `--min_range_val=${params.min_range_val}`,
+        `--max_range_val=${params.max_range_val}`,
         `--output=${filename}`
     ];
     if (GLOBAL_APPLICATION_VARIABLE_bUseDummy)
@@ -165,6 +167,8 @@ function performTest(params) {
 }
 
 function executeScript(args) {
+    console.log(args);
+
     // reset the update queue
     updateQueue = [];
 
