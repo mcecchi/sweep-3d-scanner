@@ -25,8 +25,18 @@ function initScanForm() {
     _UTILS.initDropdownForEnum('select_MotorSpeed', _SETTINGS.MOTOR_SPEED_ENUM);
     _UTILS.initDropdownForEnum('select_SampleRate', _SETTINGS.SAMPLE_RATE_ENUM);
 
-    $("#input_MinRangeVal").val("10")
-    $("#input_MaxRangeVal").val("4000")
+    $("#input_MinRangeVal").attr({
+        min: _SETTINGS.RANGE_VAL_ENUM.MIN,
+        max: _SETTINGS.RANGE_VAL_ENUM.MAX,
+        step: _SETTINGS.RANGE_VAL_ENUM.STEP
+    });
+    $("#input_MaxRangeVal").attr({
+        min: _SETTINGS.RANGE_VAL_ENUM.MIN,
+        max: _SETTINGS.RANGE_VAL_ENUM.MAX,
+        step: _SETTINGS.RANGE_VAL_ENUM.STEP
+    });
+    $("#input_MinRangeVal").val(_SETTINGS.RANGE_VAL_ENUM.MIN)
+    $("#input_MaxRangeVal").val(_SETTINGS.RANGE_VAL_ENUM.MAX)
 
     // Request that a scan be initiated when button is pressed
     $("#btn_PerformScan").click(function () {
@@ -131,8 +141,15 @@ function readSpecifiedScanOptions() {
     let alt_filename = "3D Scan - " + d.toDateString() + " " + d.toLocaleTimeString().replace(/:\s*/g, "-");
     options.file_name = _UTILS.textInputHasValue("#input_FileName") ? $("#input_FileName").val() : alt_filename;
 
-    options.min_range_val = _UTILS.textInputHasValue("#input_MinRangeVal") ? $("#input_MinRangeVal").val() : "10";
-    options.max_range_val = _UTILS.textInputHasValue("#input_MaxRangeVal") ? $("#input_MaxRangeVal").val() : "4000";
+    options.min_range_val = _UTILS.textInputHasValue("#input_MinRangeVal") ? $("#input_MinRangeVal").val() : _SETTINGS.RANGE_VAL_ENUM.MIN;
+    options.min_range_val = isNaN(options.min_range_val) ? _SETTINGS.RANGE_VAL_ENUM.MIN : parseInt(options.min_range_val);
+    options.min_range_val = (options.min_range_val < _SETTINGS.RANGE_VAL_ENUM.MIN) ? _SETTINGS.RANGE_VAL_ENUM.MIN : options.min_range_val;
+    options.min_range_val = (options.min_range_val > _SETTINGS.RANGE_VAL_ENUM.MAX) ? _SETTINGS.RANGE_VAL_ENUM.MAX : options.min_range_val;
+
+    options.max_range_val = _UTILS.textInputHasValue("#input_MaxRangeVal") ? $("#input_MaxRangeVal").val() : _SETTINGS.RANGE_VAL_ENUM.MAX;
+    options.max_range_val = isNaN(options.max_range_val) ? _SETTINGS.RANGE_VAL_ENUM.MAX : parseInt(options.max_range_val);
+    options.max_range_val = (options.max_range_val < _SETTINGS.RANGE_VAL_ENUM.MIN) ? _SETTINGS.RANGE_VAL_ENUM.MIN : options.max_range_val;
+    options.max_range_val = (options.max_range_val > _SETTINGS.RANGE_VAL_ENUM.MAX) ? _SETTINGS.RANGE_VAL_ENUM.MAX : options.max_range_val;
 
     return options;
 }

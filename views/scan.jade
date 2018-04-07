@@ -73,10 +73,10 @@ block content
             select.form-control.input-lg(id="select_SampleRate", name="input_SampleRate")
         div.form-group
             label(for="input_MinRangeVal") Minimum Distance:
-            input.form-control.input-lg(type="text", id="input_MinRangeVal", name="input_MinRangeVal")
+            input.form-control.input-lg(type="number", id="input_MinRangeVal", name="input_MinRangeVal")
         div.form-group
             label(for="input_MaxRangeVal") Maximum Distance:
-            input.form-control.input-lg(type="text", id="input_MaxRangeVal", name="input_MaxRangeVal")
+            input.form-control.input-lg(type="number", id="input_MaxRangeVal", name="input_MaxRangeVal")
         button.btn.btn-primary.btn-lg(id="btn_PerformScan", type="button") Start Scan
 block scripts
   include scanner_lib_scripts

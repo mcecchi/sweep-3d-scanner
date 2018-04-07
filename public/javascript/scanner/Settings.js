@@ -58,6 +58,12 @@ ScannerLib.Settings = function () {
         }
     };
 
+    const RANGE_VAL_ENUM = {
+        MIN: 10,
+        MAX: 4000,
+        STEP: 1
+    };
+
     /****************************************************************************************
     * Methods
     ****************************************************************************************/
@@ -71,6 +77,7 @@ ScannerLib.Settings = function () {
         MOTOR_SPEED_ENUM: MOTOR_SPEED_ENUM,
         SAMPLE_RATE_ENUM: SAMPLE_RATE_ENUM,
         SCAN_TYPE_ENUM: SCAN_TYPE_ENUM,
-        TEST_TYPE_ENUM: TEST_TYPE_ENUM
+        TEST_TYPE_ENUM: TEST_TYPE_ENUM,
+        RANGE_VAL_ENUM: RANGE_VAL_ENUM
     };
 }();
